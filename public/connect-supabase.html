@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Supabase Connection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <h1>Supabase Connection Test</h1>
+
+  <button id="connectBtn">Connect</button>
+  <button id="disconnectBtn">Disconnect</button>
+
+  <pre id="status"></pre>
+
+  <script>
+    const statusEl = document.getElementById('status');
+
+    document.getElementById('connectBtn').onclick = async () => {
+      const res = await fetch('/api/supabase/connect');
+      const data = await res.json();
+      statusEl.textContent = JSON.stringify(data, null, 2);
+    };
+
+    document.getElementById('disconnectBtn').onclick = async () => {
+      const res = await fetch('/api/supabase/disconnect');
+      const data = await res.json();
+      statusEl.textContent = JSON.stringify(data, null, 2);
+    };
+  </script>
+</body>
+</html>
