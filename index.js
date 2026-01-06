@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 
 import supabaseRoutes from './routes/supabase.routes.js';
+import geminiRoutes from './routes/gemini.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.static('public'));
 // Routes
 // -------------------------
 app.use('/api/supabase', supabaseRoutes);
+app.use('/api/gemini', geminiRoutes);
 
 // -------------------------
 // Health check endpoint
@@ -25,7 +27,7 @@ app.use('/api/supabase', supabaseRoutes);
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
-    version: '2026-mm--dd', // bump on every deploy
+    version: '2026-mm--dd',
     pid: process.pid,
     uptime: process.uptime(),
     timestamp: new Date().toISOString()

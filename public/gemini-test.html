@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gemini API Test</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; }
+    button { padding: 10px 16px; }
+    pre { background: #f4f4f4; padding: 12px; }
+  </style>
+</head>
+<body>
+
+<h1>Gemini API Test</h1>
+<button onclick="askGemini()">Ask Gemini</button>
+
+<pre id="output"></pre>
+
+<script>
+async function askGemini() {
+  const output = document.getElementById("output");
+  output.textContent = "Calling Gemini...";
+
+  try {
+    const res = await fetch("/api/gemini/ask-gemini", { method: "POST" });
+    const data = await res.json();
+    output.textContent = JSON.stringify(data, null, 2);
+  } catch (e) {
+    output.textContent = e.toString();
+  }
+}
+</script>
+
+</body>
+</html>
