@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 import supabaseRoutes from './routes/supabase.routes.js';
 import geminiRoutes from './routes/gemini.js';
+import primusMailerRoutes from './routes/mailer.primus.routes.js';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.static('public'));
 // -------------------------
 app.use('/api/supabase', supabaseRoutes);
 app.use('/api/gemini', geminiRoutes);
+app.use('/api/mailer-primus', primusMailerRoutes);
 
 // -------------------------
 // Health check endpoint
