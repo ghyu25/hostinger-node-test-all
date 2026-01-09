@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Server-Side Calculator</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <h1>Server-Side Calculator</h1>
+
+  <div class="box">
+    <input id="num1" type="number" placeholder="Number 1">
+    <input id="num2" type="number" placeholder="Number 2">
+    <select id="operation">
+      <option value="add">+</option>
+      <option value="subtract">-</option>
+      <option value="multiply">*</option>
+      <option value="divide">/</option>
+    </select>
+    <button id="calculateBtn">Calculate</button>
+  </div>
+
+  <pre id="result"></pre>
+
+  <script>
+    const resultEl = document.getElementById('result');
+
+    document.getElementById('calculateBtn').onclick = async () => {
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const op = document.getElementById('operation').value;
+
+      const res = await fetch('/api/calculator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ num1, num2, op })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        resultEl.textContent = `Result: ${data.result}`;
+      } else {
+        resultEl.textContent = `Error: ${data.error}`;
+      }
+    };
+  </script>
+</body>
+</html>

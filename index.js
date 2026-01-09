@@ -6,6 +6,8 @@ import geminiRoutes from './routes/gemini.js';
 import primusMailerRoutes from './routes/mailer.primus.routes.js';
 import gmailMailerRoutes from './routes/mailer.gmail.routes.js';
 import resendMailerRoutes from './routes/mailer.resend.routes.js';
+import calculatorRoutes from './routes/calculator.routes.js';
+import supabaseMailerRoutes from './routes/mailer.supabase.routes.js';
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ app.use('/api/gemini', geminiRoutes);
 app.use('/api/mailer-primus', primusMailerRoutes);
 app.use('/api/mailer-gmail', gmailMailerRoutes);
 app.use('/api/resend', resendMailerRoutes);
+app.use('/api/calculator', calculatorRoutes);
+app.use('/api/mailer-supabase', supabaseMailerRoutes);
 
 // -------------------------
 // Health check endpoint
