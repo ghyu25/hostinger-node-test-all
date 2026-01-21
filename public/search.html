@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      margin-bottom: 20px;
+    }
+    
+    .search-form {
+      margin-bottom: 30px;
+    }
+    
+    input[type="text"] {
+      padding: 10px;
+      width: 70%;
+      font-size: 16px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    #results {
+      margin-top: 20px;
+    }
+    
+    .result-item {
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+    }
+    
+    .result-item h3 {
+      margin: 0 0 5px 0;
+    }
+    
+    .result-item p {
+      margin: 0;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Demo</h1>
+  
+  <div class="search-form">
+    <input type="text" id="searchInput" placeholder="Enter search term...">
+    <button onclick="performSearch()">Search</button>
+  </div>
+  
+  <div id="results"></div>
+
+  <script>
+    function performSearch() {
+      const query = document.getElementById('searchInput').value;
+      const resultsDiv = document.getElementById('results');
+      
+      fetch(`/api/search?q=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) {
+            resultsDiv.innerHTML = '<p>No results found.</p>';
+            return;
+          }
+          
+          resultsDiv.innerHTML = data.map(item => `
+            <div class="result-item">
+              <h3>${item.name}</h3>
+              <p>${item.description}</p>
+            </div>
+          `).join('');
+        })
+        .catch(err => {
+          resultsDiv.innerHTML = '<p>Error: ' + err.message + '</p>';
+        });
+    }
+    
+    // Allow Enter key to search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+  </script>
+</body>
+</html>

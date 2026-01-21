@@ -10,10 +10,7 @@ import calculatorRoutes from './routes/calculator.routes.js';
 import supabaseMailerRoutes from './routes/mailer.supabase.routes.js';
 import searchRoutes from './routes/search.routes.js';
 
-// Load .env only in non-production (Hostinger provides env vars in production)
-if (process.env.NODE_ENV !== 'production') {
- dotenv.config();
-}
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,15 +37,15 @@ app.use('/api/search', searchRoutes);
 // Health check endpoint
 // -------------------------
 app.get('/health', (req, res) => {
- res.json({
- status: 'ok',
- version: '2026-01-15',
- pid: process.pid,
- uptime: process.uptime(),
- timestamp: new Date().toISOString()
- });
+  res.json({
+    status: 'ok',
+    version: '2026-01-15',
+    pid: process.pid,
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.listen(PORT, () => {
- console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
