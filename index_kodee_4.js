@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import supabaseRoutes from './routes/supabase.routes.js';
 
 dotenv.config();
 
@@ -9,8 +8,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
-
-app.use('/api/supabase', supabaseRoutes);
 
 app.get('/', (req, res) => {
 res.send('Minimal + dotenv OK');
