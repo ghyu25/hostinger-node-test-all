@@ -1,28 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import supabaseRoutes from './routes/supabase.routes.js';
-
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.static('public'));
-
-app.use('/api/supabase', supabaseRoutes);
-
-app.get('/', (req, res) => {
-res.send('Minimal + dotenv OK');
-});
-
-app.get('/health', (req, res) => {
+app.get('/env-check', (req, res) => {
 res.json({
-status: 'ok',
-version: 'minimal+dotenv',
-pid: process.pid,
-uptime: process.uptime(),
-timestamp: new Date().toISOString(),
+SUPABASE_URL: process.env.SUPABASE_URL || null,
+SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ? 'SET (hidden)' : null,
 });
 });
 
