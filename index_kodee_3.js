@@ -1,22 +1,16 @@
 import express from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.static('public'));
-
 app.get('/', (req, res) => {
-res.send('Minimal + dotenv OK');
+res.send('Minimal test OK');
 });
 
 app.get('/health', (req, res) => {
 res.json({
 status: 'ok',
-version: 'minimal+dotenv',
+version: 'minimal-test',
 pid: process.pid,
 uptime: process.uptime(),
 timestamp: new Date().toISOString(),
