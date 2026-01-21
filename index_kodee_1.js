@@ -10,8 +10,10 @@ import calculatorRoutes from './routes/calculator.routes.js';
 import supabaseMailerRoutes from './routes/mailer.supabase.routes.js';
 import searchRoutes from './routes/search.routes.js';
 
-// Always load .env (same as your original working file)
-dotenv.config();
+// Load .env only in non-production (Hostinger provides env vars in production)
+if (process.env.NODE_ENV !== 'production') {
+ dotenv.config();
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
